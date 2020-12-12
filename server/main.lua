@@ -28,6 +28,10 @@ end)
 
 RegisterServerEvent('esx_service:notifyAllInService')
 AddEventHandler('esx_service:notifyAllInService', function(notification, name)
+	if InService[name][source] == nil then
+		return
+	end
+	
 	for k,v in pairs(InService[name]) do
 		if v == true then
 			TriggerClientEvent('esx_service:notifyAllInService', k, notification, source)
