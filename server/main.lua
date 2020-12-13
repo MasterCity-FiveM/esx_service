@@ -28,7 +28,7 @@ end)
 
 RegisterServerEvent('esx_service:notifyAllInService')
 AddEventHandler('esx_service:notifyAllInService', function(notification, name)
-	if InService[name][source] == nil then
+	if InService[name][source] ~= nil then
 		return
 	end
 	
