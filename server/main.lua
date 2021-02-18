@@ -68,6 +68,11 @@ AddEventHandler('esx_service:GetServiceCount', function(cb, name)
 	cb(inServiceCount)
 end)
 
+ESX.RegisterServerCallback('esx_service:GetServiceCount', function(cb, name)
+	local inServiceCount = GetInServiceCount(name)
+	cb(inServiceCount)
+end)
+
 ESX.RegisterServerCallback('esx_service:isInService', function(source, cb, name)
 	local isInService = false
 
