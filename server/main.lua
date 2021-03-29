@@ -27,11 +27,13 @@ end)
 
 RegisterServerEvent('esx_service:disableService')
 AddEventHandler('esx_service:disableService', function(name)
+	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:disableService', {name = name})
 	InService[name][source] = nil
 end)
 
 RegisterServerEvent('esx_service:notifyAllInService')
 AddEventHandler('esx_service:notifyAllInService', function(notification, name)
+	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:notifyAllInService', {notification = notification, name = name})
 	if InService[name][source] == nil then
 		return
 	end
@@ -44,6 +46,7 @@ AddEventHandler('esx_service:notifyAllInService', function(notification, name)
 end)
 
 ESX.RegisterServerCallback('esx_service:enableService', function(source, cb, name)
+	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:enableService', {name = name})
 	local inServiceCount = GetInServiceCount(name)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	
@@ -69,11 +72,13 @@ AddEventHandler('esx_service:GetServiceCount', function(cb, name)
 end)
 
 ESX.RegisterServerCallback('esx_service:GetServiceCount', function(cb, name)
+	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:GetServiceCount', {name = name})
 	local inServiceCount = GetInServiceCount(name)
 	cb(inServiceCount)
 end)
 
 ESX.RegisterServerCallback('esx_service:isInService', function(source, cb, name)
+	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:isInService', {name = name})
 	local isInService = false
 
 	if InService[name] == nil then
@@ -90,6 +95,7 @@ ESX.RegisterServerCallback('esx_service:isInService', function(source, cb, name)
 end)
 
 ESX.RegisterServerCallback('esx_service:getInServOnlinePlayers', function(source, cb, job)
+	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:getInServOnlinePlayers', {job = job})
 	local players = {}
 	if InService[job] == nil then
 		cb(players)
@@ -112,6 +118,7 @@ ESX.RegisterServerCallback('esx_service:getInServOnlinePlayers', function(source
 end)
 
 ESX.RegisterServerCallback('esx_service:getInServiceList', function(source, cb, name)
+	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:getInServiceList', {name = name})
 	cb(InService[name])
 end)
 
