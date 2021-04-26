@@ -72,7 +72,7 @@ AddEventHandler('esx_service:GetServiceCount', function(cb, name)
 end)
 
 ESX.RegisterServerCallback('esx_service:GetServiceCount', function(cb, name)
-	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:GetServiceCount', {name = name})
+	--ESX.RunCustomFunction("anti_ddos", source, 'esx_service:GetServiceCount', {name = name})
 	local inServiceCount = GetInServiceCount(name)
 	cb(inServiceCount)
 end)
