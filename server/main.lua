@@ -27,8 +27,10 @@ end)
 
 RegisterServerEvent('esx_service:disableService')
 AddEventHandler('esx_service:disableService', function(name)
-	ESX.RunCustomFunction("anti_ddos", source, 'esx_service:disableService', {name = name})
-	InService[name][source] = nil
+	--ESX.RunCustomFunction("anti_ddos", source, 'esx_service:disableService', {name = name})
+	if name ~= nil and source ~= nil then
+		InService[name][source] = nil
+	end
 end)
 
 RegisterServerEvent('esx_service:notifyAllInService')
