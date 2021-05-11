@@ -84,12 +84,32 @@ ESX.RegisterServerCallback('esx_service:isInService', function(source, cb, name)
 	local isInService = false
 
 	if InService[name] == nil then
-		isInService = true
 		cb(isInService)
 		return
 	end
 
 	if InService[name][source] then
+		isInService = true
+	end
+
+	cb(isInService)
+end)
+
+ESX.RegisterServerCallback('esx_service:isPlayerInService', function(cb, src, name)
+	local isInService = false
+	
+	local xPlayer = ESX.GetPlayerFromId(src)
+	if not xPlayer then
+		cb(isInService)
+		return
+	end
+	
+	if InService[name] == nil then
+		cb(isInService)
+		return
+	end
+
+	if InService[name][src] then
 		isInService = true
 	end
 
