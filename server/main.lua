@@ -28,6 +28,9 @@ end)
 RegisterServerEvent('esx_service:disableService')
 AddEventHandler('esx_service:disableService', function(name)
 	--ESX.RunCustomFunction("anti_ddos", source, 'esx_service:disableService', {name = name})
+	if source ~= nil then
+		TriggerClientEvent('esx_service:DisableServiceBlips', source)
+	end
 	if name ~= nil and source ~= nil then
 		InService[name][source] = nil
 	end
@@ -137,6 +140,31 @@ ESX.RegisterServerCallback('esx_service:getInServOnlinePlayers', function(source
 	end
 	
 	cb(players)
+end)
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(5000)
+		local job_members = {}
+		for k, _ in pairs(InService) do
+			local job = k
+			job_members = {}
+			for k2, value in pairs(InService[job]) do
+				local xPlayer = ESX.GetPlayerFromId(k2)
+				if xPlayer then
+					job_members[k2] = {}
+					job_members[k2]['source'] = xPlayer.source
+					job_members[k2]['name'] = xPlayer.firstname .. ' ' .. xPlayer.lastname
+					job_members[k2]['coords'] = GetEntityCoords(GetPlayerPed(xPlayer.source))
+					job_members[k2]['heading'] = GetEntityHeading(GetPlayerPed(xPlayer.source))
+				end
+			end
+			
+			for k2, value in pairs(InService[job]) do
+				TriggerClientEvent('esx_service:inServicePlayersBlips', k2, job_members)
+			end
+		end
+	end
 end)
 
 ESX.RegisterServerCallback('esx_service:getInServiceList', function(source, cb, name)
