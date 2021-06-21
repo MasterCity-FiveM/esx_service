@@ -142,6 +142,12 @@ ESX.RegisterServerCallback('esx_service:getInServOnlinePlayers', function(source
 	cb(players)
 end)
 
+
+ESX.RegisterServerCallback('esx_service:isPlayerInService', function(cb)
+	cb(InService)
+end)
+
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(5000)
