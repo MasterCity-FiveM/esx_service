@@ -31,7 +31,8 @@ AddEventHandler('esx_service:disableService', function(name)
 	if source ~= nil then
 		TriggerClientEvent('esx_service:DisableServiceBlips', source)
 	end
-	if name ~= nil and source ~= nil then
+	
+	if name ~= nil and source ~= nil and InService[name] ~= nil and InService[name][source] then
 		InService[name][source] = nil
 	end
 end)
