@@ -36,7 +36,7 @@ function createBlip(id, playerData)
 		
 		SetBlipScale(blip, 0.7) -- set scale
 		SetBlipAsShortRange(blip, true)
-		SetBlipColour(blip, 2)
+		SetBlipColour(blip, playerData.color)
 
 		table.insert(JobPlayersBlip, blip) -- add blip to array so we can remove it later
 	end
@@ -47,7 +47,7 @@ function createBlipCoords(playerData)
 	SetBlipSprite(blip, 1)
 	ShowHeadingIndicatorOnBlip(blip, true) -- Player Blip indicator
 	SetBlipRotation(blip, math.ceil(playerData.heading)) -- update rotation
-	SetBlipColour(blip, 2)
+	SetBlipColour(blip, playerData.color)
 	
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentString(playerData.name)

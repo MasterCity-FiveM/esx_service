@@ -153,6 +153,7 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(5000)
 		local job_members = {}
+		local milt_members = {}
 		for k, _ in pairs(InService) do
 			local job = k
 			job_members = {}
@@ -164,11 +165,35 @@ Citizen.CreateThread(function()
 					job_members[k2]['name'] = xPlayer.firstname .. ' ' .. xPlayer.lastname
 					job_members[k2]['coords'] = GetEntityCoords(GetPlayerPed(xPlayer.source))
 					job_members[k2]['heading'] = GetEntityHeading(GetPlayerPed(xPlayer.source))
+					job_members[k2]['color'] = 2
+					
+					if job == 'police' then
+						job_members[k2]['color'] = 18
+						milt_members[k2] = {}
+						milt_members[k2] = job_members[k2]
+					elseif job == 'sheriff' then
+						job_members[k2]['color'] = 52
+						milt_members[k2] = {}
+						milt_members[k2] = job_members[k2]
+					elseif job == 'fbi' then
+						job_members[k2]['color'] = 54
+						milt_members[k2] = {}
+						milt_members[k2] = job_members[k2]
+					elseif job == 'dadsetani' then
+						job_members[k2]['color'] = 51
+						milt_members[k2] = {}
+						milt_members[k2] = job_members[k2]
+					end
 				end
 			end
 			
 			for k2, value in pairs(InService[job]) do
-				TriggerClientEvent('esx_service:inServicePlayersBlips', k2, job_members)
+				local xPlayer = ESX.GetPlayerFromId(k2)
+				if xPlayer.job.name == 'police' and xPlayer.job.grade_name == 'boss' then
+					TriggerClientEvent('esx_service:inServicePlayersBlips', k2, milt_members)
+				else
+					TriggerClientEvent('esx_service:inServicePlayersBlips', k2, job_members)
+				end
 			end
 		end
 	end
